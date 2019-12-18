@@ -17,20 +17,17 @@ RUN echo "syntax \"disabled\" \".\"" > ~/.nanorc; echo "color green \"^$\"" >> ~
 #Odd caret/cursor behavior in nano within SSH session,
 #see https://github.com/Microsoft/WSL/issues/1436#issuecomment-480570997
 ENV TERM eterm-color
-
-COPY conf/init-databases.sh /docker-entrypoint-initdb.d/init-databases.sh
-COPY conf/init-locking.sh /docker-entrypoint-initdb.d/init-locking.sh
-COPY conf/init-lockingPermits.sh /docker-entrypoint-initdb.d/init-lockingPermits.sh
+COPY conf/ /docker-entrypoint-initdb.d/
 
 
 #docker rmi -f postgress
-#docker rm -f manageDb
+#docker rm -f alex-manageDb
 #docker build --squash . -t postgress
-#docker run --name manageDb -d -p5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=main postgress
+#docker run --name alex-manageDb -d -p5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=main postgress
 #smoke test
 #docker exec -it $(docker ps -q -n=1) ps aux | grep 'postgres: checkpointer'
 #docker exec -it $(docker ps -q -n=1) bash
-#docker tag object-store-db alexberkovich/alpine-postgress:0.0.1
+#docker tag postgress alexberkovich/alpine-postgress:0.0.2
 #docker push alexberkovich/alpine-postgress
 
 # EOF
